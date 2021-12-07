@@ -20,10 +20,14 @@ public class CreditCard {
     }
 
     public boolean isValid() throws InvalidCreditCard {
-        if (!luhnCheck(this.number))
-            throw new InvalidCreditCard("invalid number");
+        if (!luhnCheck(this.number) || !isExpirationMonthValid())
+            throw new InvalidCreditCard("Invalid credit card!");
         else
             return true;
+    }
+
+    public boolean isExpirationMonthValid() {
+        return expirationMonth > 0 && expirationMonth < 13;
     }
 
     public boolean luhnCheck(String number) {
