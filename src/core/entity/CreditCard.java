@@ -22,8 +22,12 @@ public class CreditCard {
     }
 
     public boolean isValid() throws InvalidCreditCard {
-        if (!luhnCheck(this.number) || !isExpirationMonthValid() || !isExpirationYearValid())
-            throw new InvalidCreditCard("Invalid credit card!");
+        if (!luhnCheck(this.number))
+            throw new InvalidCreditCard("Invalid credit card number!");
+        if (!isExpirationMonthValid())
+            throw new InvalidCreditCard("Invalid expiration month!");
+        if (!isExpirationYearValid())
+            throw new InvalidCreditCard("Invalid expiration year!");
         else
             return true;
     }
