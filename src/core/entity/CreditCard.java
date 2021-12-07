@@ -1,5 +1,7 @@
 package core.entity;
 
+import java.util.Calendar;
+
 import helpers.credit_card.InvalidCreditCard;
 
 public class CreditCard {
@@ -20,7 +22,7 @@ public class CreditCard {
     }
 
     public boolean isValid() throws InvalidCreditCard {
-        if (!luhnCheck(this.number) || !isExpirationMonthValid())
+        if (!luhnCheck(this.number) || !isExpirationMonthValid() || !isExpirationYearValid())
             throw new InvalidCreditCard("Invalid credit card!");
         else
             return true;
@@ -28,6 +30,11 @@ public class CreditCard {
 
     public boolean isExpirationMonthValid() {
         return expirationMonth > 0 && expirationMonth < 13;
+    }
+
+    public boolean isExpirationYearValid() {
+        Calendar year = Calendar.getInstance();
+        return expirationYear >= year.get(Calendar.YEAR);
     }
 
     public boolean luhnCheck(String number) {
